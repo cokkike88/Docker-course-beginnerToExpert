@@ -1,0 +1,18 @@
+version: '3.7'
+services: 
+  web:
+    container_name: nginx-test
+    ports: 
+      - "81:80"
+    image: nginx
+    networks: 
+      - net-test
+  web2:
+    container_name: nginx-test2
+    ports: 
+      - "82:80"
+    image: httpd
+    networks: 
+      - net-test
+networks: 
+  net-test:

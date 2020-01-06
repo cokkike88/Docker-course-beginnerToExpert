@@ -1,0 +1,8 @@
+version: '3.7'
+services: 
+  db:
+    image: mysql
+    container_name: mysql-test
+    ports: 
+      - "3310:3306"
+    env_file: common.env

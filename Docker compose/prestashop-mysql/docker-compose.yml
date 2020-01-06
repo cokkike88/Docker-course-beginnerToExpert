@@ -1,0 +1,35 @@
+version: '3.7'
+services: 
+  db:
+    container_name: ps-mysql
+    command: --default-authentication-plugin=mysql_native_password
+    image: mysql
+    volumes: 
+      - $PWD/data:/var/lib/mysql
+    environment: 
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: ps
+      MYSQL_USER: ps
+      MYSQL_PASSWORD: ps
+    ports: 
+      - "3307:3306"
+    networks: 
+      - my-net
+  ps:
+    container_name: ps-web
+    volumes: 
+      - $PWD/html:/var/www/html
+    depends_on: 
+      - db
+    image: prestashop/prestashop
+    ports: 
+      - "88:80"
+    environment: 
+      DB_SERVER: db
+      DB_USER: ps
+      DB_PASSWD: ps
+      DB_NAME: ps
+    networks: 
+      - my-net
+networks: 
+  my-net:
